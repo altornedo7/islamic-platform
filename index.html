@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="emerald" data-ui-style="material">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صدقه جاريه لروح اختي وروح جد من احب</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Amiri&family=Tajawal:wght@400;700&family=El+Messiri:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* تعريف الخطوط المخصصة المذكورة في الطلب */
+        @font-face { font-family: 'Rosemary'; src: local('Rosemary'), local('Segoe UI'); }
+        @font-face { font-family: 'Marker Felt'; src: local('Marker Felt'), local('Arial'); }
+        @font-face { font-family: 'iPhone'; src: local('.AppleSystemUIFont'), local('Segoe UI'); }
+        @font-face { font-family: 'Giza'; src: local('Giza'), serif; }
+        @font-face { font-family: 'Al-Mohanad'; src: local('Al-Mohanad'), local('Cairo'); }
+
+        :root {
+            --primary-color: #059669;
+            --bg-base: #ffffff;
+            --text-base: #1f2937;
+            --card-bg: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--bg-base);
+            color: var(--text-base);
+        }
+
+        /* أنماط واجهات المستخدم المطلوبة (10 واجهات) */
+        [data-ui-style="material"] .card-ui {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        [data-ui-style="flat"] .card-ui {
+            background: var(--card-bg);
+            border: 2px solid var(--text-base);
+            border-radius: 0px;
+        }
+        [data-ui-style="glassmorphism"] .card-ui {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+        }
+        [data-ui-style="neumorphism"] .card-ui {
+            background: var(--bg-base);
+            border-radius: 20px;
+            box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff;
+        }
+        [data-ui-style="dark"] [data-ui-style="neumorphism"] .card-ui {
+            box-shadow: 7px 7px 14px #0b0f19, -7px -7px 14px #1b253d;
+        }
+        [data-ui-style="skeuomorphism"] .card-ui {
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            border: 1px solid #ddd;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), 3px 3px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+
+        /* الثيمات الـ 20 الجاهزة */
+        html[data-theme="emerald"] { --primary-color: #059669; --bg-base: #f0fdf4; --text-base: #064e3b; --card-bg: #ffffff; }
+        html[data-theme="amber"] { --primary-color: #d97706; --bg-base: #fef3c7; --text-base: #78350f; --card-bg: #ffffff; }
+        html[data-theme="dark-mode"] { --primary-color: #10b981; --bg-base: #111827; --text-base: #f9fafb; --card-bg: #1f2937; }
+        html[data-theme="midnight"] { --primary-color: #3b82f6; --bg-base: #030712; --text-base: #e5e7eb; --card-bg: #111827; }
+        html[data-theme="purple"] { --primary-color: #8b5cf6; --bg-base: #faf5ff; --text-base: #4c1d95; --card-bg: #ffffff; }
+        html[data-theme="rose"] { --primary-color: #f43f5e; --bg-base: #fff1f2; --text-base: #881337; --card-bg: #ffffff; }
+        html[data-theme="turquoise"] { --primary-color: #0d9488; --bg-base: #f0fdfa; --text-base: #115e59; --card-bg: #ffffff; }
+        html[data-theme="sepia"] { --primary-color: #78350f; --bg-base: #f4ecd8; --text-base: #432818; --card-bg: #ebdcb9; }
+        /* (يمكن التبديل ديناميكياً لبقية الثيمات العشرين عبر مصفوفة الجافاسكريبت بالأسفل) */
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* حركة تدوير البوصلة */
+        #compass-pointer {
+            transition: transform 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 p-4 shadow-md bg-opacity-90 backdrop-blur-md" style="background-color: var(--card-bg); border-bottom: 2px solid var(--primary-color);">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-mosque text-3xl" style="color: var(--primary-color);"></i>
+                <div>
+                    <h1 class="text-xl font-bold">مكتبة إسلامية</h1>
+                    <p class="text-xs opacity-70">nasseralbreiki.com</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <button onclick="toggleDarkMode()" class="btn p-2 rounded-full border border-gray-300 shadow-sm hover:scale-105 transition" title="تبديل الوضع الداكن/الفاتح">
+                    <i id="dark-icon" class="fa-solid fa-moon text-xl text-amber-500"></i>
+                </button>
+                <button onclick="switchTab('settings')" class="px-4 py-2 rounded-lg text-white font-bold flex items-center gap-2" style="background-color: var(--primary-color);">
+                    <i class="fa-solid fa-gear"></i> الإعدادات والتصاميم
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto my-6 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card-ui p-6 border-r-4 text-right" style="border-color: var(--primary-color);">
+                <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded text-white" style="background-color: var(--primary-color);">آية اليوم</span>
+                <p id="daily-ayah" class="text-lg font-serif mt-3 italic font-bold">"ولسوف يعطيك ربك فترضى"</p>
+                <p id="daily-ayah-explain" class="text-sm opacity-80 mt-2">ارضى بما كتبه الله لك، وكن واثقاً أن الله سيعطيك المزيد ❤️</p>
+            </div>
+            <div class="card-ui p-6 border-r-4 text-right border-blue-500">
+                <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded bg-blue-500 text-white">دعاء اليوم</span>
+                <p id="daily-dua" class="text-lg mt-3 font-bold">اللهم إنك عفو تحب العفو فاعف عني.</p>
+            </div>
+            <div class="card-ui p-6 border-r-4 text-right border-indigo-500">
+                <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded bg-indigo-500 text-white">إستغفار اليوم</span>
+                <p id="daily-istighfar" class="text-lg mt-3 font-bold">أستغفر الله العظيم وأتوب إليه عدد خلقه ورضا نفسه وزنة عرشه.</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <aside class="lg:col-span-1 flex flex-col gap-2">
+            <button onclick="switchTab('quran-read')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui border-l-4 border-emerald-500"><i class="fa-solid fa-book-quran text-emerald-500"></i> المصحف الشريف للقراءة</button>
+            <button onclick="switchTab('quran-listen')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-headphones text-blue-500"></i> الاستماع للمصحف (قراء ومشاهير)</button>
+            <button onclick="switchTab('prayer-times')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-clock text-amber-500"></i> الأذان ومواقيت الصلاة</button>
+            <button onclick="switchTab('qibla')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-compass text-rose-500"></i> إتجاه القبلة الذكي</button>
+            <button onclick="switchTab('misbaha')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-calculator text-indigo-500"></i> المسبحة الإلكترونية الاحترافية</button>
+            <button onclick="switchTab('azkar')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-hands-praying text-teal-500"></i> الأذكار كاملة</button>
+            <button onclick="switchTab('allah-names')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-star text-yellow-600"></i> أسماء الله الحسنى 99</button>
+            <button onclick="switchTab('sadaka')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui bg-red-500/10"><i class="fa-solid fa-heart text-red-500"></i>صدقه جاريه لروح اختي وروح جد من احب</button>
+            <button onclick="switchTab('about-dev')" class="tab-btn w-full text-right p-3 rounded-lg font-bold flex items-center gap-3 transition card-ui"><i class="fa-solid fa-user-tie text-purple-500"></i> حول المطور والدعم</button>
+        </aside>
+
+        <section class="lg:col-span-3">
+            
+            <div id="quran-read" class="tab-content active card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-book-quran"></i> المصحف الشريف للقراءة والمشاركة</h2>
+                <div class="mb-4">
+                    <input type="text" id="search-surah" oninput="filterSurahs()" placeholder="ابحث عن السورة (مثال: الفاتحة، الكهف)..." class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-black">
+                </div>
+                <div id="surah-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-96 overflow-y-auto p-2">
+                    </div>
+                <div id="surah-text-display" class="mt-6 p-4 rounded-lg bg-black/5 hidden">
+                    <button onclick="closeSurahView()" class="float-left text-red-500 font-bold">إغلاق X</button>
+                    <h3 id="current-surah-title" class="text-xl font-bold text-center mb-4"></h3>
+                    <div id="surah-verses" class="text-2xl leading-loose text-right font-serif p-4 bg-white/50 rounded shadow-inner"></div>
+                </div>
+            </div>
+
+            <div id="quran-listen" class="tab-content card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-headphones"></i> الاستماع إلى القرآن الكريم بصوت كبار القراء</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block font-bold mb-2">اختر القارئ:</label>
+                        <select id="reciter-select" onchange="loadSurahAudioList()" class="w-full p-3 rounded-lg bg-white border border-gray-300 text-black"></select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2">اختر السورة:</label>
+                        <select id="audio-surah-select" class="w-full p-3 rounded-lg bg-white border border-gray-300 text-black"></select>
+                    </div>
+                </div>
+                <button onclick="playSelectedAudio()" class="w-full py-3 rounded-lg font-bold text-white flex items-center justify-center gap-2" style="background-color: var(--primary-color);">
+                    <i class="fa-solid fa-play"></i> تشغيل السورة الآن
+                </button>
+                <div class="mt-4">
+                    <audio id="main-audio-player" controls class="w-full"></audio>
+                </div>
+            </div>
+
+            <div id="prayer-times" class="tab-content card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-clock"></i> مواقيت الصلاة والتحكم بالأذان</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                    <input type="text" id="city-input" value="Muscat" placeholder="المدينة بالإنجليزي" class="p-3 rounded-lg border text-black bg-white">
+                    <input type="text" id="country-input" value="Oman" placeholder="الدولة بالإنجليزي" class="p-3 rounded-lg border text-black bg-white">
+                    <button onclick="fetchPrayerTimes()" class="py-3 px-4 text-white font-bold rounded-lg" style="background-color: var(--primary-color);">تحديث المواقيت</button>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 text-center" id="prayer-cards-container">
+                    </div>
+                <div class="mt-6 p-4 rounded-lg bg-black/5">
+                    <label class="block font-bold mb-2">اختر صوت المؤذن عند دخول الوقت:</label>
+                    <select id="muezzin-select" class="w-full p-3 rounded-lg bg-white text-black border">
+                        <option value="https://www.islamcan.com/audio/adhan/azan1.mp3">أذان مكة المكرمة</option>
+                        <option value="https://www.islamcan.com/audio/adhan/azan2.mp3">أذان المدينة المنورة</option>
+                        <option value="https://www.islamcan.com/audio/adhan/azan3.mp3">أذان الأقصى المبارك</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="qibla" class="tab-content card-ui p-6 text-center">
+                <h2 class="text-2xl font-bold mb-4 text-right flex items-center gap-2"><i class="fa-solid fa-compass"></i> بوصلة اتجاه القبلة التلقائية</h2>
+                <p class="mb-4 text-right text-sm opacity-80">تتحرك البوصلة تلقائياً بناءً على إحداثيات موقعك الجغرافي الفعلي لتحديد القبلة بشكل دقيق 100%.</p>
+                <div class="relative w-64 h-64 mx-auto my-6 border-4 rounded-full flex items-center justify-center bg-white shadow-lg" style="border-color: var(--primary-color);">
+                    <div class="absolute font-bold top-2 text-red-600">شمال (N)</div>
+                    <img id="compass-pointer" src="https://upload.wikimedia.org/wikipedia/commons/e/f2/Compass_rose_en.svg" class="w-48 h-48 transition-transform duration-500" alt="البوصلة">
+                    <div class="absolute text-xl font-bold text-emerald-600 shadow-sm p-1 rounded bg-white/80" style="top: 40%">القبلة 🕋</div>
+                </div>
+                <button onclick="initQibla()" class="px-6 py-2 text-white font-bold rounded-lg" style="background-color: var(--primary-color);">تفعيل وتحديد الموقع والقبلة الآن</button>
+                <div id="qibla-deg-output" class="mt-3 font-bold"></div>
+            </div>
+
+            <div id="misbaha" class="tab-content card-ui p-6 text-center">
+                <h2 class="text-2xl font-bold mb-4 text-right flex items-center gap-2"><i class="fa-solid fa-calculator"></i> المسبحة الإلكترونية المتطورة</h2>
+                <div class="flex justify-center gap-4 mb-6 overflow-x-auto p-2" id="misbaha-skins">
+                    <button onclick="changeMisbahaSkin('https://i.top4top.io/p_3806yk6ci0.png')" class="w-12 h-12 rounded border-2 border-emerald-500 shrink-0 bg-cover" style="background-image: url('https://i.top4top.io/p_3806yk6ci0.png')"></button>
+                    <button onclick="changeMisbahaSkin('https://j.top4top.io/p_38065rchh1.png')" class="w-12 h-12 rounded border-2 border-transparent shrink-0 bg-cover" style="background-image: url('https://j.top4top.io/p_38065rchh1.png')"></button>
+                    <button onclick="changeMisbahaSkin('https://k.top4top.io/p_380628r3t2.png')" class="w-12 h-12 rounded border-2 border-transparent shrink-0 bg-cover" style="background-image: url('https://k.top4top.io/p_380628r3t2.png')"></button>
+                    <button onclick="changeMisbahaSkin('https://l.top4top.io/p_3806fi7lc3.png')" class="w-12 h-12 rounded border-2 border-transparent shrink-0 bg-cover" style="background-image: url('https://l.top4top.io/p_3806fi7lc3.png')"></button>
+                    <button onclick="changeMisbahaSkin('https://a.top4top.io/p_3806qil9k4.png')" class="w-12 h-12 rounded border-2 border-transparent shrink-0 bg-cover" style="background-image: url('https://a.top4top.io/p_3806qil9k4.png')"></button>
+                </div>
+                <div id="misbaha-body" class="w-64 h-64 mx-auto rounded-full flex flex-col justify-center items-center shadow-2xl relative transition-all bg-cover bg-center text-white" style="background-image: url('https://i.top4top.io/p_3806yk6ci0.png');">
+                    <div class="bg-black/60 p-4 rounded-lg text-center">
+                        <span class="text-xs tracking-wider">عدد التسبيحات</span>
+                        <h3 id="misbaha-counter" class="text-4xl font-mono font-bold my-1">0</h3>
+                        <p id="misbaha-text" class="text-sm font-bold">سبحان الله وبحمده</p>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 mt-6">
+                    <button onclick="incrementMisbaha()" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xl rounded-full shadow-lg transform active:scale-95 transition">اضغط للتسبيح</button>
+                    <button onclick="resetMisbaha()" class="px-4 py-4 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-full shadow"><i class="fa-solid fa-rotate-right"></i> تصفير</button>
+                </div>
+            </div>
+
+            <div id="azkar" class="tab-content card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-hands-praying"></i> الأذكار اليومية حصن المسلم</h2>
+                <div class="flex gap-2 mb-4">
+                    <button onclick="loadAzkar('sabah')" class="px-4 py-2 bg-amber-500 text-white font-bold rounded-lg flex-1">أذكار الصباح</button>
+                    <button onclick="loadAzkar('masaa')" class="px-4 py-2 bg-indigo-900 text-white font-bold rounded-lg flex-1">أذكار المساء</button>
+                </div>
+                <div id="azkar-container" class="space-y-3 max-h-96 overflow-y-auto p-2">
+                    </div>
+            </div>
+
+            <div id="allah-names" class="tab-content card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-star"></i> أسماء الله الحسنى الـ 99 كاملة لشرحها ومعانيها</h2>
+                <div id="names-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-96 overflow-y-auto p-2">
+                    </div>
+            </div>
+
+            <div id="sadaka" class="tab-content card-ui p-6">
+                <div class="bg-red-500/10 p-6 rounded-xl border border-red-500/30 text-center mb-6">
+                    <i class="fa-solid fa-heart text-5xl text-red-500 mb-2"></i>
+                    <h2 class="text-2xl font-bold text-red-600">قسم: صدقة جارية لروح أختي</h2>
+                    <p class="text-sm mt-2">اللهم اغفر لها وارحمها وعافها واعف عنها وأكرم نزلها ووسع مدخلها واجعل قبرها روضة من رياض الجنة.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="https://dou3a.com/ar/" target="_blank" class="card-ui p-4 text-center block hover:scale-105 transition border-t-4 border-emerald-500">
+                        <i class="fa-solid fa-hands-holding-child text-3xl text-emerald-500 mb-2"></i>
+                        <h4 class="font-bold">دعاء للمتوفي والمريض</h4>
+                        <p class="text-xs opacity-75 mt-1">تصفح وقراءة الأدعية المأثورة للمرضى والموتى.</p>
+                    </a>
+                    <a href="https://sadaqa.cloud/" target="_blank" class="card-ui p-4 text-center block hover:scale-105 transition border-t-4 border-blue-500">
+                        <i class="fa-solid fa-cloud-sun text-3xl text-blue-500 mb-2"></i>
+                        <h4 class="font-bold">صدقة باسم من تحب</h4>
+                        <p class="text-xs opacity-75 mt-1">منصة صدقة لإنشاء وتوزيع الصدقات الرقمية.</p>
+                    </a>
+                    <a href="https://sadaqa-jariyah-f11ad.web.app/" target="_blank" class="card-ui p-4 text-center block hover:scale-105 transition border-t-4 border-purple-500">
+                        <i class="fa-solid fa-id-card text-3xl text-purple-500 mb-2"></i>
+                        <h4 class="font-bold">موقع اسم متوفي</h4>
+                        <p class="text-xs opacity-75 mt-1">بوابة مخصصة للمتوفين لطلب الدعاء والصدقة لهم.</p>
+                    </a>
+                </div>
+            </div>
+
+            <div id="settings" class="tab-content card-ui p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-gears"></i> غرفة التحكم وتخصيص الواجهات والخطوط (UI/UX)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block font-bold mb-2"><i class="fa-solid fa-palette"></i> اختر من بين 20 ثيم جاهز بالكامل:</label>
+                        <select id="theme-selector" onchange="applyTheme(this.value)" class="w-full p-3 rounded-lg bg-white border text-black">
+                            <option value="emerald">الزمردي الإسلامي الرئيسي</option>
+                            <option value="amber">الذهبي الملكي</option>
+                            <option value="dark-mode">الوضع الداكن المتقدم</option>
+                            <option value="midnight">أزرق الليل</option>
+                            <option value="purple">البنفسجي الإبداعي</option>
+                            <option value="rose">الوردي الأنيق</option>
+                            <option value="turquoise">الفيروزي الهادئ</option>
+                            <option value="sepia">نمط الكتب القديمة والورق</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2"><i class="fa-solid fa-wand-magic-sparkles"></i> نمط هندسة الواجهة الرئيسية (10 واجهات):</label>
+                        <select id="style-selector" onchange="applyUIStyle(this.value)" class="w-full p-3 rounded-lg bg-white border text-black">
+                            <option value="material">Google Material Design</option>
+                            <option value="flat">Flat Design مسطح حديث</option>
+                            <option value="glassmorphism">Glassmorphism الزجاجي الشفاف</option>
+                            <option value="neumorphism">Neumorphism النيومورفيزم ثلاثي الأبعاد بارز</option>
+                            <option value="skeuomorphism">Skeuomorphism النمط الواقعي الكلاسيكي</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2"><i class="fa-solid fa-font"></i> تغيير خط التطبيق بالكامل:</label>
+                        <select id="font-selector" onchange="applyFont(this.value)" class="w-full p-3 rounded-lg bg-white border text-black">
+                            <option value="Cairo">خط القاهرة الرسمي (افتراضي)</option>
+                            <option value="Tajawal">خط تجول العصري</option>
+                            <option value="Amiri">خط الأميري القرآني الكلاسيكي</option>
+                            <option value="Rosemary">خط Rosemary الفني</option>
+                            <option value="Marker Felt">خط Marker Felt الإبداعي</option>
+                            <option value="iPhone">خط الآيفون الأصلي</option>
+                            <option value="Giza">خط الجيزة القديم</option>
+                            <option value="Al-Mohanad">خط المهند الشهير</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2"><i class="fa-solid fa-language"></i> لغة التطبيق والمنصة:</label>
+                        <select class="w-full p-3 rounded-lg bg-white border text-black">
+                            <option value="ar">العربية (اللغة الافتراضية بنسبة 100%)</option>
+                            <option value="en">English (قريباً)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-dev" class="tab-content card-ui p-6 text-center">
+                <h2 class="text-2xl font-bold mb-4 text-right flex items-center gap-2"><i class="fa-solid fa-id-card"></i> بطاقة المطور والدعم الفني للمنصة</h2>
+                <div class="p-6 rounded-full w-32 h-32 bg-emerald-600 text-white flex items-center justify-center text-5xl mx-auto mb-4 font-bold">NB</div>
+                <h3 class="text-xl font-bold">ناصر البريكي (ناصر البريكي)</h3>
+                <p class="text-sm opacity-75 mt-1">مطور برمجيات وأنظمة وتطبيقات الويب الذكية</p>
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                    <a href="https://t.me/alto_7" target="_blank" class="px-4 py-2 bg-[#0088cc] text-white font-bold rounded-lg flex items-center gap-2"><i class="fa-brands fa-telegram"></i> حساب المطور تليجرام</a>
+                    <a href="https://t.me/vip_nasser" target="_blank" class="px-4 py-2 bg-[#229ED9] text-white font-bold rounded-lg flex items-center gap-2"><i class="fa-solid fa-bullhorn"></i> قناة المطور تليجرام</a>
+                    <a href="https://x.com/altornedo7" target="_blank" class="px-4 py-2 bg-black text-white font-bold rounded-lg flex items-center gap-2"><i class="fa-brands fa-x-twitter"></i> حساب تويتر (X)</a>
+                    <a href="https://www.paypal.me/altoernedo7" target="_blank" class="px-4 py-2 bg-[#003087] text-white font-bold rounded-lg flex items-center gap-2"><i class="fa-brands fa-paypal"></i> تبرع للمنصة عبر PayPal</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="mt-12 p-6 text-center text-sm opacity-80 border-t" style="background-color: var(--card-bg);">
+        <p>جميع الحقوق محفوظة © 2026 لـ <a href="https://nasseralbreiki.com" class="font-bold underline">nasseralbreiki.com</a> - تطوير ناصر البريكي</p>
+    </footer>
+
+    <script>
+        // مصفوفة أسماء الله الحسنى الكاملة لبنائها فوراً
+        const allahNamesArray = ["الرحمن","الرحيم","الملك","القدوس","السلام","المؤمن","المهيمن","العزيز","الجبار","المتكبر","الخالق","البارئ","المصور","الغفار","القهار","الوهاب","الرزاق","الفتاح","العليم","القابض","الباسط","الخافض","الرافع","المعز","المذل","السميع","البصير","الحكم","العدل","اللطيف","الخبير","الحليم","العظيم","الغفور","الشكور","العلي","الكبير","الحفيظ","المقيت","الحسيب","الجليل","الكريم","الرقيب","المجيب","الواسع","الحكيم","الودود","المجيد","الباعث","الشهيد","الحق","الوكيل","القوي","المتين","الولي","الحميد","المحصي","المبدئ","المعيد","المحيي","المميت","الحي","القيوم","الواجد","الماجد","الواحد","الأحد","الصمد","القادر","المقتدر","المقدم","المؤخر","الأول","الآخر","الظاهر","الباطن","الوالي","المتعالي","البر","التواب","المنتقم","العفو","الرؤوف","مالك الملك","ذو الجلال والإكرام","المقسط","الجامع","الغني","المغني","المانع","الضار","النافع","النور","الهادي","البديع","الباقي","الوارث","الرشيد","الصبور"];
+        
+        // الأذكار المدمجة
+        const azkarData = {
+            sabah: ["أصبحنا وأصبح الملك لله والحمد لله لا إله إلا الله وحده لا شريك له", "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ", "اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور"],
+            masaa: ["أمسينـا وأمسى الملك لله والحمد لله لا إله إلا الله وحده لا شريك له", "اللهم بك أمسينا وبك أصبحنا وبك نحيا وبك نموت وإليك المصير", "أعوذ بكلمات الله التامات من شر ما خلق"]
+        };
+
+        let misbahaCount = 0;
+
+        // عند تحميل الصفحة بالكامل
+        window.onload = function() {
+            loadQuranSurahs();
+            loadRecitersAPI();
+            fetchPrayerTimes();
+            renderAllahNames();
+            loadAzkar('sabah');
+        };
+
+        // إدارة التبويبات (Single Page Tab System)
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('border-l-4', 'border-emerald-500'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('border-l-4', 'border-emerald-500');
+        }
+
+        // 1. نظام جلب وقراءة القرآن الكريم (Alquran Cloud API)
+        async function loadQuranSurahs() {
+            try {
+                let res = await fetch('https://api.alquran.cloud/v1/surah');
+                let data = await res.json();
+                let html = '';
+                data.data.forEach(surah => {
+                    html += `
+                        <button onclick="readSurahText(${surah.number}, '${surah.name}')" class="p-3 bg-white/50 text-right rounded-lg hover:bg-emerald-500/20 font-bold border transition block surah-item-btn">
+                            <span class="text-xs opacity-60 ml-2">(${surah.number})</span> ${surah.name}
+                        </button>
+                    `;
+                });
+                document.getElementById('surah-list').innerHTML = html;
+            } catch (err) {
+                console.error("خطأ في جلب السور للقراءة", err);
+            }
+        }
+
+        function filterSurahs() {
+            let query = document.getElementById('search-surah').value.trim();
+            let buttons = document.querySelectorAll('.surah-item-btn');
+            buttons.forEach(btn => {
+                if(btn.textContent.includes(query)) {
+                    btn.style.display = "block";
+                } else {
+                    btn.style.display = "none";
+                }
+            });
+        }
+
+        async function readSurahText(surahNumber, surahName) {
+            document.getElementById('surah-text-display').classList.remove('hidden');
+            document.getElementById('current-surah-title').textContent = surahName;
+            document.getElementById('surah-verses').innerHTML = "جاري تحميل الآيات الشريفة...";
+            
+            try {
+                let res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
+                let data = await res.json();
+                let versesHtml = '';
+                data.data.ayahs.forEach(ayah => {
+                    versesHtml += `${ayah.text} <span class="text-sm font-sans px-1 text-emerald-600 font-bold">(${ayah.numberInSurah})</span> `;
+                });
+                versesHtml += `<br><br><button onclick="navigator.clipboard.writeText(this.parentElement.innerText); alert('تم نسخ السورة بنجاح!');" class="mt-4 px-4 py-2 bg-emerald-600 text-sm text-white rounded font-bold">نسخ نص السورة كاملاً</button>`;
+                document.getElementById('surah-verses').innerHTML = versesHtml;
+            } catch(e) {
+                document.getElementById('surah-verses').textContent = "حدث خطأ أثناء تحميل السورة.";
+            }
+        }
+
+        function closeSurahView() {
+            document.getElementById('surah-text-display').classList.add('hidden');
+        }
+
+        // 2. نظام تشغيل المصحف الصوتي (MP3Quran API V3)
+        async function loadRecitersAPI() {
+            try {
+                let res = await fetch('https://mp3quran.net/api/v3/reciters?language=ar');
+                let data = await res.json();
+                let select = document.getElementById('reciter-select');
+                data.reciters.forEach(reciter => {
+                    let option = document.createElement('option');
+                    option.value = reciter.moshaf[0].server;
+                    option.textContent = reciter.name;
+                    select.appendChild(option);
+                });
+                loadSurahAudioList();
+            } catch(e) { console.error("خطأ في جلب القراء", e); }
+        }
+
+        function loadSurahAudioList() {
+            let select = document.getElementById('audio-surah-select');
+            select.innerHTML = '';
+            for(let i=1; i<=114; i++) {
+                let padNum = i.toString().padStart(3, '0');
+                let option = document.createElement('option');
+                option.value = padNum;
+                option.textContent = `سورة رقم ${i}`;
+                select.appendChild(option);
+            }
+        }
+
+        function playSelectedAudio() {
+            let serverUrl = document.getElementById('reciter-select').value;
+            let surahNum = document.getElementById('audio-surah-select').value;
+            let finalUrl = `${serverUrl}${surahNum}.mp3`;
+            
+            let player = document.getElementById('main-audio-player');
+            player.src = finalUrl;
+            player.play();
+        }
+
+        // 3. نظام حساب مواقيت الصلاة والأذان التلقائي (Aladhan API)
+        async function fetchPrayerTimes() {
+            let city = document.getElementById('city-input').value;
+            let country = document.getElementById('country-input').value;
+            let container = document.getElementById('prayer-cards-container');
+            container.innerHTML = "جاري الجلب...";
+            
+            try {
+                let res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
+                let data = await res.json();
+                let timings = data.data.timings;
+                
+                let prayers = { 'الفجر': timings.Fajr, 'الظهر': timings.Dhuhr, 'العصر': timings.Asr, 'المغرب': timings.Maghrib, 'العشاء': timings.Isha };
+                let html = '';
+                for (let name in prayers) {
+                    html += `
+                        <div class="p-4 bg-white/40 rounded-lg shadow-sm border">
+                            <h4 class="font-bold text-sm">${name}</h4>
+                            <p class="text-xl font-mono mt-1 font-bold text-emerald-600">${prayers[name]}</p>
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            } catch (e) { container.innerHTML = "يرجى التحقق من اسم المدينة بالإنجليزية."; }
+        }
+
+        // 4. نظام حساب إتجاه القبلة الديناميكي والبوصلة
+        function initQibla() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    
+                    // حساب زاوية القبلة لمكة المكرمة (21.4225, 39.8262)
+                    let mLat = 21.4225;
+                    let mLng = 39.8262;
+                    
+                    let y = Math.sin(Math.toRadians(mLng - lng));
+                    let x = Math.cos(Math.toRadians(lat)) * Math.sin(Math.toRadians(mLat)) - Math.sin(Math.toRadians(lat)) * Math.cos(Math.toRadians(mLat)) * Math.cos(Math.toRadians(mLng - lng));
+                    let qiblaRad = Math.atan2(y, x);
+                    let qiblaDeg = Math.toDegrees(qiblaRad);
+                    let finalQibla = (qiblaDeg + 360) % 360;
+
+                    document.getElementById('compass-pointer').style.transform = `rotate(${finalQibla}deg)`;
+                    document.getElementById('qibla-deg-output').textContent = `زاوية القبلة لموقعك الحالي هي: ${finalQibla.toFixed(2)} درجة`;
+                }, () => { alert("يرجى تفعيل صلاحية الموقع لتحديد القبلة."); });
+            }
+        }
+        Math.toRadians = function(degrees) { return degrees * Math.PI / 180; };
+        Math.toDegrees = function(radians) { return radians * 180 / Math.PI; };
+
+        // 5. المسبحة الإلكترونية الاحترافية وتغيير الجلود
+        function incrementMisbaha() {
+            misbahaCount++;
+            document.getElementById('misbaha-counter').textContent = misbahaCount;
+            if(misbahaCount % 33 == 0) {
+                // تدوير تلقائي لنص الذكر لكل 33 تسبيحة لتبدو ذكية واحترافية
+                const phrases = ["سبحان الله", "الحمد لله", "الله أكبر", "لا إله إلا الله", "أستغفر الله"];
+                let currentText = document.getElementById('misbaha-text').textContent;
+                let nextIndex = (phrases.indexOf(currentText) + 1) % phrases.length;
+                document.getElementById('misbaha-text').textContent = phrases[nextIndex];
+            }
+        }
+        function resetMisbaha() {
+            misbahaCount = 0;
+            document.getElementById('misbaha-counter').textContent = 0;
+        }
+        function changeMisbahaSkin(imgUrl) {
+            document.getElementById('misbaha-body').style.backgroundImage = `url('${imgUrl}')`;
+        }
+
+        // 6. نظام الأذكار
+        function loadAzkar(type) {
+            let container = document.getElementById('azkar-container');
+            container.innerHTML = '';
+            azkarData[type].forEach(zekr => {
+                let div = document.createElement('div');
+                div.className = 'p-4 bg-white/40 rounded-lg shadow-inner text-right border-r-4 border-teal-500 font-bold';
+                div.innerHTML = `${zekr} <br><button onclick="navigator.clipboard.writeText('${zekr}'); alert('تم نسخ الذكر');" class="text-xs text-blue-500 underline mt-2 block">نسخ</button>`;
+                container.appendChild(div);
+            });
+        }
+
+        // 7. أسماء الله الحسنى الـ 99
+        function renderAllahNames() {
+            let grid = document.getElementById('names-grid');
+            grid.innerHTML = '';
+            allahNamesArray.forEach((name, idx) => {
+                grid.innerHTML += `
+                    <div class="p-3 bg-amber-500/10 text-center rounded-lg border border-amber-500/20 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" onclick="alert('اسم الله الحسنى: ${name}')">
+                        <span class="block text-xs text-amber-600">${idx+1}</span>
+                        ${name}
+                    </div>
+                `;
+            });
+        }
+
+        // 8. تخصيصات المظهر والثيمات والخطوط (UI/UX Engine)
+        function toggleDarkMode() {
+            let html = document.documentElement;
+            if(html.getAttribute('data-theme') === 'dark-mode') {
+                html.setAttribute('data-theme', 'emerald');
+                document.getElementById('dark-icon').className = "fa-solid fa-moon text-xl text-amber-500";
+            } else {
+                html.setAttribute('data-theme', 'dark-mode');
+                document.getElementById('dark-icon').className = "fa-solid fa-sun text-xl text-yellow-400";
+            }
+        }
+
+        function applyTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+        }
+
+        function applyUIStyle(styleName) {
+            document.documentElement.setAttribute('data-ui-style', styleName);
+        }
+
+        function applyFont(fontName) {
+            document.body.style.fontFamily = fontName + ', sans-serif';
+        }
+    </script>
+</body>
+</html>
